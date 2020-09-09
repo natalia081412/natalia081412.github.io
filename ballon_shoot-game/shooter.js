@@ -1,5 +1,4 @@
 function loadImages(){
-	// To load custom images as ballon and shooter
 	ballonImage = new Image();
 	shotImage = new Image();
 	bulletImage = new Image();
@@ -11,15 +10,10 @@ function loadImages(){
 
 
 function init(){
-// document.getElementById('mycanvas') retrieves the canvas element defined in the html file by using its id.
 canvas = document.getElementById('mycanvas');
-//canvas.width = window.innerWidth;
-//canvas.height = window.innerHeight;
 console.log(canvas);
 gameover = false;
-
-// pen is an object created using the getContext() function.
-pen = canvas.getContext('2d'); // 2d is passed to make 2d games in html
+pen = canvas.getContext('2d');
 
 W = canvas.width;
 H = canvas.height;
@@ -27,8 +21,6 @@ prev_counter = 0;
 counter = 0;
 
 loadImages();
-
-// shooter is the spaceshooter we are creating.
 shooter = {
 	x : 300,
 	y : H-50,
@@ -69,8 +61,6 @@ shooter = {
 	}
 
 };
-
-// Listener for events
 function buttonGotPressed(e){
 	if(e.key==" "){
 		shooter.shoot();
@@ -89,15 +79,11 @@ function buttonGotPressed(e){
 	}
 }
 
-document.addEventListener('keydown', buttonGotPressed);   // When spacebar is pressed, then the shooter shoots the bullet
-
+document.addEventListener('keydown', buttonGotPressed);
 ballons = [];
 var e = new ballon(10,20,5);
 ballons.push(e);
-
 }
-
-// Class defined for a bullet
 function bullet(x,y,speed){
 	this.x = x;
 	this.y = y;
@@ -107,9 +93,6 @@ function bullet(x,y,speed){
 	this.speed = speed;
 
 	this.draw = function(){
-
-		//pen.fillStyle = "red"
-		//pen.fillRect(this.x,this.y,this.w,this.h);
         pen.drawImage(bulletImage,this.x,this.y,this.w,this.h);
 
 	}
@@ -124,7 +107,6 @@ function bullet(x,y,speed){
 
 }
 
-// Class defined for an ballon
 function ballon(x,y,speed){
 	this.x = x;
 	this.y = y;
@@ -142,8 +124,6 @@ function ballon(x,y,speed){
 	this.update = function(){
 
 		this.x = this.x + this.speed;
-
-		// To test the boundary conditions
 		if(this.x >= W-this.w || this.x<=0){
 			this.speed *= -1;
 		}
@@ -161,8 +141,7 @@ function ballon(x,y,speed){
 function draw(){
 	pen.clearRect(0,0,W,H);
 
-	pen.fillStyle = "red"  // to fill with red color.
-	//Drawing the shooter
+	pen.fillStyle = "red"  
 	shooter.draw()
 	shooter.bullets.forEach(function(bullet){
 		bullet.draw();
